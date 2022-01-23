@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\MessagePushed;
+use App\Events\PublicMessage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('send/{message}',function($message){
+    event(new PublicMessage($message));
+    dd(['success'=>$message . ' enviada com sucesso']);
 });
